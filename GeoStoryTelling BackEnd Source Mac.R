@@ -99,11 +99,8 @@ tags$style(HTML("b, strong{color:#CD1076;
 	padding-top: 3px;
     padding-bottom: 3px;
 	line-height: 1.1;
-	border-radius: 25px;"), # ; color:black p("active tab is in gold" , style ="font-weight:bold")
-             # h3("RQDA produces three main outcomes", style ="font-weight:bold"),
-			# h4("1. Table with results of community allocation by actors' attributes selected in section B", style ="font-weight:bold"),
-			 # h4("2. If role attribute was added, a PDF with all QAP comparisons included this indicator", style ="font-weight:bold"),
-			 # h4("3. Aggregated interactive network depiction as shown below. If role was selected, network depictions are also generated", style ="font-weight:bold"),
+	border-radius: 25px;"), 
+
 			 htmlOutput("opttextphu", style = "font-size: 20px"), (uiOutput('mymap'))),
 		tabPanel(p("III. About GeoStoryTelling", style ="font-weight:bold"), # ; color:black p("active tab is in gold" , style ="font-weight:bold")
 		tags$h4("Program Description"),
@@ -115,7 +112,6 @@ tags$style(HTML("b, strong{color:#CD1076;
 
 		<b>GeoStoryTelling</b> constitutes one of the first products released as part of the mission of <b>DDS</b>.")),###PHUDCFILY <br><br>
 
-###PHUDCFILYHowever, as part of this movement, <b>technical</b> support to <b>help expand and strengthen</b> these software tools is also <b>encouraged</b>. Access to <b>source code</b> and documentation is provided and <b>collaboration</b> opportunities are <b>welcomed</b>.")),
 		tags$hr(),
 		# # # PHUDCFILY
 		tags$h4("Questions and ideas for software applications?"),
@@ -131,13 +127,10 @@ tags$style(HTML("b, strong{color:#CD1076;
 server = function(input, output, session){
 library(DT)#PHUDCFILY
 library(gtools)
-# ex1<- as.data.frame(sapply(read.csv("www/cultural_map_PHUDCFILY.csv"),function(x)gsub("/", "_",x))) #PHUDCFILY
+
 ex1<- read.csv(paste(getwd(), "/www/cultural_map_PHUDCFILY.csv", sep=""))
 ex1$Video.Image.Link.or.Location <- ifelse(ex1$Video.Image.Link.or.Location == "/Users/shiningapps/Dropbox (Penn GSE)/virtual/GeoStoryTelling/www/berlinphudcfily.jpg", paste(getwd(), "/www/berlinphudcfily.jpg",sep=""), paste0(ex1$Video.Image.Link.or.Location))
 print(ex1)
-# ex1<- as.data.frame(sapply(read.csv("https://raw.githubusercontent.com/msgc/movie/master/Anonymized_JMMR_NAQD.csv"),function(x)gsub("/", "_",x))) #PHUDCFILY
-# ex2<- read.csv("https://raw.githubusercontent.com/msgc/movie/master/essay_document_analysis_PHUDCFILY.csv") #PHUDCFILY
-
 
 # PHUDCFILY
 output$toy_data <- renderUI({
@@ -157,11 +150,11 @@ fileInput("file1", label=NULL,
 
 a1 <- reactiveValues(a = NULL)
 observeEvent(input$file1, {
-# path <- gsub(input$file1$datapath,
+
      a1$a <- read.csv(input$file1$datapath, header = TRUE, sep = ",", dec = ".",
                      comment.char = "", strip.white = TRUE,
                      stringsAsFactors = TRUE, encoding="UTF-8")#PHUDCFILY
-	 #print(a1$a)
+
     })
 observeEvent(input$first, {
      a1$a <- ex1[,1:ncol(ex1)]
@@ -307,14 +300,7 @@ if (is.data.frame(a1$a)==TRUE) {
 })
 
 ###PHUDCFILY
-
-
-###PHUDCFILY
-# gs<-getwd()
-# setwd(paste(gs,"www/", sep=""))
 print(getwd())
-# linki <- a1$linki
-# print(linki)
 	library(leaflet)
 	library(htmlwidgets)
 	library(htmltools)
@@ -357,14 +343,6 @@ a$ego <- paste0(a$ego)
  a$ego <- paste("ID", 1:nrow(a))
  }
 
-# conteudo <- paste(sep = "<br/>",
-               # paste0("<img src='", a$woman, "' width = 150>"),
-               # paste0("<b>Name: </b>", a$ego),
-               # paste0("<b>Address/Location: </b>", a$alter),
-               # paste0("<a href='", a$role,"'>Hyperlink to ", namei, " </a>"))
-# colnames(a)[4:5]<-c("lon","lat")
-#print(conteudo)
-
 
 tag.map.mtitle <- tags$style(HTML("
   .leaflet-control.map-title {
@@ -394,13 +372,6 @@ mtitle <- tags$div(
 mtitle <- NA
 }
 
-#map <- leaflet() %>%
-#		addProviderTiles("CartoDB") %>% #Stamen.TonerLite PHUDCFILY
-#setView(mean(a$shape), mean(a$shapel), zoom=11) %>%
-#addMarkers(data = a, lng = ~shape, lat = ~shapel, popup=conteudo, label = ~ego)%>%
-#addControl(mtitle, position = "topright", className="map-title")
-
-###PHUDCFILY
 
 library(leaflet.extras) # extending the leaflet.js #not intalled yet? PHUDCFILY
 
@@ -444,10 +415,6 @@ addControl(mtitle, position = "topright", className="map-title")%>%
 
   leaflet.extras::addResetMapButton()
 
-
-
-###PHUDCFILY
-
 print(map)
 my_path <- tempdir()
 a1$my_path <- my_path
@@ -463,21 +430,6 @@ utils::browseURL(paste(my_path, "/index.html", sep=""))
 }
      })#closes output$mymap PHUDCFILY
 
-	 # output$tables <- DT::renderDataTable({
-# if (input$role!="no_role_added") {
-# datatable(a1$dfphu, options = list(
-    # pageLength = 5))
-# }  else {
-# datatable(data.frame(message="Process ends here, no role selected for QAP to be generated"), options = list(
-    # pageLength = 1))
-# }
-# })
-
  } #closes server PHUDCFILY
 
 shinyApp(ui, server)
-
-#PHUDCFILY
-# rsconnect::setAccountInfo(name='NAQD',
-			  # token='2AC7246D32DC0E01F051573022DA99A7',
-			  # secret='mOv54RmIOxnkn6/szhBe79Qloa9iZmDEgJvliGY/')
