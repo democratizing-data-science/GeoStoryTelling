@@ -1,4 +1,3 @@
-# install.packages("shinythemes")
 library(shinythemes)
 library(shiny)
 library(DT)
