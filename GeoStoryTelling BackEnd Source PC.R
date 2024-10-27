@@ -406,8 +406,3 @@ if (is.data.frame(a1$a)==TRUE) {
  } #closes server PHUDCFILY
 
 shinyApp(ui, server)
-
-#PHUDCFILY
-# rsconnect::setAccountInfo(name='NAQD',
-			  # token='2AC7246D32DC0E01F051573022DA99A7',
-			  # secret='mOv54RmIOxnkn6/szhBe79Qloa9iZmDEgJvliGY/')
